@@ -68,10 +68,11 @@ set allow-remote-requests=yes servers=8.8.8.8,8.8.4.4,118.98.103.122
 /ip firewall address-list
 add address=172.30.1.0/30 comment=LOCAL list="ALL NETWORK"
 add address=10.172.192.128/25 comment="NMS RADIOLINK" list="ALL NETWORK"
+
+#Konfigurasi Load Balance PCC 3 ISP
 /ip firewall mangle
-add action=accept chain=prerouting comment="##################################\
-    ##########LOAD BALANCE PCC 3 WAN##########################################\
-    ##" dst-address-list="ALL NETWORK" in-interface-list=LAN
+add action=accept chain=prerouting comment="LOAD BALANCE PCC 3 ISP"\
+    dst-address-list="ALL NETWORK" in-interface-list=LAN
 add action=accept chain=output dst-address-list="ALL NETWORK" \
     out-interface-list=LAN
 add action=mark-connection chain=input in-interface="Eth1_[ISP1]" \
@@ -139,51 +140,11 @@ set allow-guests=no
 /ip ssh
 set forwarding-enabled=remote strong-crypto=yes
 /snmp
-set contact="DOPNETINDO PRATAMA" enabled=yes location=BENGKULU trap-version=2
+set contact="DOPNETINDO PRATAMA" enabled=no location=BENGKULU trap-version=2
 /system clock
 set time-zone-name=Asia/Jakarta
 /system identity
 set name=android1449944773409
-/system note
-set note="\
-    \n\
-    \n\
-    \n\
-    \n\
-    \n\
-    \n\
-    \n\
-    \n\
-    \n\
-    \n\
-    \n\
-    \n\
-    \n\
-    \n\
-    \n\
-    \nDDDD   OOOO  PPPPP  NN     NN EEEEE TTTTTTTT\
-    \nD  DD OO  OO PP  PP NN N   NN EE       TT\
-    \nD  DD OO  OO PPPPP  NN  N  NN EEEEE    TT\
-    \nD  DD OO  OO PP     NN   N NN EE       TT\
-    \nDDDD   OOOO  PP     NN     NN EEEEE    TT\
-    \n\
-    \n############################################\
-    \n# Hi Engineer.. Wellcome  !! #\
-    \n# This Machine Manage by Dopnetindo Pratama  #\
-    \n############################################\
-    \n\
-    \n[\?]             Gives the list of available commands\
-    \ncommand [\?]     Gives help on the command and list of arguments\
-    \n\
-    \n[Tab]           Completes the command/word. If the input is ambiguous,\
-    \n                a second [Tab] gives possible options\
-    \n\
-    \n/               Move up to base level\
-    \n..              Move up one level\
-    \n/command        Use command at the base level\
-    \n\
-    \n\
-    \n"
 /system ntp client
 set enabled=yes
 /system ntp server
